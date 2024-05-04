@@ -1,0 +1,60 @@
+﻿@page
+@model Presentation.Areas.Admin.Pages.ArticleCategoryManagement.IndexModel
+@{
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="float-left">Article Category List</h3>
+        <div class="float-right">
+            <a class="btn btn-success" asp-page="./Create" asp-area="Admin">Add New</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>CreationDate</th>
+                    <th>Operations</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var articleCategory in Model.ArticleCategories)
+                {
+                    <tr>
+                        <td>@articleCategory.Id</td>
+                        <td>@articleCategory.Title</td>
+                        <td>
+                            @if (articleCategory.IsDeleted)
+                            {
+                                <a class="btn btn-danger">-</a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-success">-</a>
+                            }
+                        </td>
+                        <td>@articleCategory.CreationTime</td>
+                        <td>
+                            <a class="btn btn-warning float-left mr-3" asp-page="./Edit" asp-route-id="@articleCategory.Id">Rename</a>
+                            @if (articleCategory.IsDeleted)
+                            {
+                                <a class="btn btn-warning" asp-page-handler="Restore" asp-route-id="@articleCategory.Id">Activate</a>
+                               
+                            }
+                            else
+                            {
+                                <a class="btn btn-danger" asp-page-handler="Remove" asp-route-id="@articleCategory.Id">Remove</a>
+                                
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
