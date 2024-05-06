@@ -1,5 +1,7 @@
 ﻿using BM.Application;
+using BM.Application.Contracts.Article;
 using BM.Application.Contracts.ArticleCategory;
+using BM.Domain.ArticleAgg;
 using BM.Domain.ArticleCategoryAgg;
 using BM.Infrastructure.EFCore;
 using BM.Infrastructure.EFCore.Repository;
@@ -15,6 +17,9 @@ namespace BM.Infrastructure.Configuration
             service.AddDbContext<BlogContext>(x => x.UseSqlServer(connectionString));
             service.AddTransient<IArticleCategoryRepository, ArticleCategoryRepository>();
             service.AddTransient<IArticleCategoryApplication, ArticleCategoryApplication>();
+
+            service.AddTransient<IArticleRepositoy, ArticleRepository>();
+            service.AddTransient<IArticleApplication, ArticleApplication>();
         }
     }
 }
