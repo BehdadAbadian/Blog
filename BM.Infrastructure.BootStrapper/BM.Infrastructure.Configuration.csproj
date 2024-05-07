@@ -14,6 +14,7 @@
     <ProjectReference Include="..\BM.Application.Contracts\BM.Application.Contracts.csproj" />
     <ProjectReference Include="..\BM.Application\BM.Application.csproj" />
     <ProjectReference Include="..\BM.Infrastructure.EFCore\BM.Infrastructure.EFCore.csproj" />
+    <ProjectReference Include="..\BM.Infrastructure.Query\BM.Infrastructure.Query.csproj" />
   </ItemGroup>
 
 </Project>

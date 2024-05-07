@@ -5,6 +5,7 @@ using BM.Domain.ArticleAgg;
 using BM.Domain.ArticleCategoryAgg;
 using BM.Infrastructure.EFCore;
 using BM.Infrastructure.EFCore.Repository;
+using BM.Infrastructure.Query.Article;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,6 +21,8 @@ namespace BM.Infrastructure.Configuration
 
             service.AddTransient<IArticleRepositoy, ArticleRepository>();
             service.AddTransient<IArticleApplication, ArticleApplication>();
+
+            service.AddTransient<IArticleQuery, ArticleQuery>();
         }
     }
 }

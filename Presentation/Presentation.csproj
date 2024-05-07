@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BM.Infrastructure.BootStrapper\BM.Infrastructure.Configuration.csproj" />
+    <ProjectReference Include="..\BM.Infrastructure.Query\BM.Infrastructure.Query.csproj" />
   </ItemGroup>
 
   <ItemGroup>
