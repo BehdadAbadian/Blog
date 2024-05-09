@@ -1,10 +1,8 @@
-﻿using BM.Infrastructure.EFCore;
+﻿using BM.Domain.CommentAgg;
+using BM.Infrastructure.EFCore;
+using BM.Infrastructure.Query.Comment;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Globalization;
 
 namespace BM.Infrastructure.Query.Article
 {
@@ -19,7 +17,10 @@ namespace BM.Infrastructure.Query.Article
 
         public List<ArticleQueryView> Articles()
         {
-            return blogContext.Articles.Include(x=> x.ArticleCategory).Where(x=>x.IsDeleted == false).Select(x=> new ArticleQueryView
+            return blogContext.Articles
+                .Include(x=> x.ArticleCategory)
+                .Include(x=> x.Comments)
+                .Where(x=>x.IsDeleted == false).Select(x=> new ArticleQueryView
             {
                 Id = x.Id,
                 Title = x.Title,
@@ -27,7 +28,8 @@ namespace BM.Infrastructure.Query.Article
                 Image = x.Image,
                 Content = x.Content,
                 CreationDate = x.CreationDate.ToString(),
-                ArticleCategory = x.ArticleCategory.Title
+                ArticleCategory = x.ArticleCategory.Title,
+                CommentCount = x.Comments.Count(x => x.Status == Statuses.Confirmed)
 
             }).OrderByDescending(x=>x.Id).ToList();
         }
@@ -42,9 +44,21 @@ namespace BM.Infrastructure.Query.Article
                 Image = x.Image,
                 Content = x.Content,
                 CreationDate = x.CreationDate.ToString(),
-                ArticleCategory = x.ArticleCategory.Title
+                ArticleCategory = x.ArticleCategory.Title,
+                CommentCount = x.Comments.Count(x => x.Status == Statuses.Confirmed),
+                Comments = MapComments(x.Comments.Where(z => z.Status == Statuses.Confirmed))
 
             }).FirstOrDefault(x=>x.Id == id);
+        }
+
+        private static List<CommentQueryViewModel> MapComments(IEnumerable<BM.Domain.CommentAgg.Comment> comments)
+        {
+            return comments.Select(comment => new CommentQueryViewModel
+            {
+                Name = comment.Name,
+                CreationDate = comment.CreationTime.ToString(CultureInfo.InvariantCulture),
+                Message = comment.Message
+            }).ToList();
         }
     }
 }

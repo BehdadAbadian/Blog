@@ -1,0 +1,71 @@
+﻿@page
+@using BM.Domain.CommentAgg
+@model Presentation.Areas.Admin.Pages.CommentManagement.IndexModel
+@{
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="float-left">Comments List</h3>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Message</th>
+                    <th>Article</th>
+                    <th>Status</th>
+                    <th>CreationDate</th>
+                    <th>Operations</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var comment in Model.Comments)
+                {
+                    <tr>
+                        <td>@comment.Id</td>
+                        <td>@comment.Name</td>
+                        <td>@comment.Email</td>
+                        <td>@comment.Message</td>
+                        <td>@comment.Article</td>
+                        <td>
+                            @if (comment.Status == Statuses.New)
+                            {
+                                <a class="btn btn-warning">New</a>
+                            }
+                            @if (comment.Status == Statuses.Rejected)
+                            {
+                                <a class="btn btn-danger">Reject</a>
+                            }
+                            @if (comment.Status == Statuses.Confirmed)
+                            {
+                                <a class="btn btn-success">Confirm</a>
+                            }
+                        </td>
+                        <td>@comment.CreationDate</td>
+                        <td>
+                            @if (comment.Status == Statuses.New)
+                            {
+                                <a class="btn btn-warning" asp-page-handler="Confirm" asp-route-id="@comment.Id">Confirm</a>
+                                <a class="btn btn-danger" asp-page-handler="Reject" asp-route-id="@comment.Id">Reject</a>
+                            }
+                            @if (comment.Status == Statuses.Confirmed)
+                            {
+                                <a class="btn btn-danger" asp-page-handler="Reject" asp-route-id="@comment.Id">Reject</a>
+                            }
+                            @if (comment.Status == Statuses.Rejected)
+                            {
+                                <a class="btn btn-warning" asp-page-handler="Confirm" asp-route-id="@comment.Id">Confirm</a>
+                                
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

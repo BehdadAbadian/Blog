@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BM.Infrastructure.Query.Comment;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,8 @@ namespace BM.Infrastructure.Query.Article
         public string CreationDate { get; set; }
         public string Image { get; set; }
         public string Content { get; set; }
+        public int CommentCount { get; set; }
+        public List<CommentQueryViewModel> Comments { get; set; }
 
     }
 }

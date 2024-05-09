@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{47D273
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BM.Domain", "BM.Domain\BM.Domain.csproj", "{251208FC-6133-4F2A-994E-4CE8B248DDB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BM.Infrastructure.Query", "BM.Infrastructure.Query\BM.Infrastructure.Query.csproj", "{FCE5A82A-C9AB-4145-A032-F22146F4E806}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BM.Infrastructure.Query", "BM.Infrastructure.Query\BM.Infrastructure.Query.csproj", "{FCE5A82A-C9AB-4145-A032-F22146F4E806}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
