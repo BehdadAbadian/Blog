@@ -1,4 +1,5 @@
 ﻿using BM.Domain.ArticleAgg;
+using Framework.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +8,10 @@ using System.Threading.Tasks;
 
 namespace BM.Domain.ArticleCategoryAgg
 {
-    public class ArticleCategory
+    public class ArticleCategory : DomainBase<long>
     {
-        public long Id { get; private set; }
         public string Title { get; private set; }
         public bool IsDeleted { get; private set; }
-        public DateTime CreationTime { get; private set; }
         public ICollection<Article> Articles { get; private set; }
 
         protected ArticleCategory()
@@ -23,7 +22,6 @@ namespace BM.Domain.ArticleCategoryAgg
         {
             Title = title;
             IsDeleted = false;
-            CreationTime = DateTime.Now;
             Articles = new List<Article>();
         }
         public void Edit(string title)

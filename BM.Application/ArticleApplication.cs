@@ -19,10 +19,10 @@ namespace BM.Application
 
         public void Create(CreateArticle command)
         {
-            if (_articleRepositoy.Exits(command.Title))
+            if (_articleRepositoy.Exists(x=>x.Title == command.Title))
                 return; ;
             var Article = new Article(command.Title,command.ShortDescription,command.Image,command.Content,command.ArticleCategoryId);
-            _articleRepositoy.Add(Article);
+            _articleRepositoy.Create(Article);
         }
 
         public void Edit(EditArticle command)

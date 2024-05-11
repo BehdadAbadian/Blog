@@ -56,7 +56,7 @@ namespace BM.Infrastructure.Query.Article
             return comments.Select(comment => new CommentQueryViewModel
             {
                 Name = comment.Name,
-                CreationDate = comment.CreationTime.ToString(CultureInfo.InvariantCulture),
+                CreationDate = comment.CreationDate.ToString(CultureInfo.InvariantCulture),
                 Message = comment.Message
             }).ToList();
         }

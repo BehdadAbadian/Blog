@@ -1,14 +1,11 @@
 ﻿using BM.Application.Contracts.Article;
+using Framework.Infrastructure;
 
 namespace BM.Domain.ArticleAgg
 {
-    public interface IArticleRepositoy
+    public interface IArticleRepositoy : IRepository<long,Article>
     {
-        void Add(Article entity);
-        Article Get(long id);
-        bool Exits(string title);
         List<ArticleViewModel> GetList();
         EditArticle GetDetails(long id);
-        void Save();
     }
 }

@@ -1,38 +1,23 @@
 ﻿using BM.Application.Contracts.ArticleCategory;
 using BM.Domain.ArticleCategoryAgg;
+using Framework.Infrastructure;
 
 namespace BM.Infrastructure.EFCore.Repository
 {
-    public class ArticleCategoryRepository : IArticleCategoryRepository
+    public class ArticleCategoryRepository : BaseRepository<long,ArticleCategory> , IArticleCategoryRepository
     {
         private readonly BlogContext _blogContext;
 
-        public ArticleCategoryRepository(BlogContext blogContext)
+        public ArticleCategoryRepository(BlogContext blogContext) : base(blogContext)
         {
             _blogContext = blogContext;
         }
-
-        public void Add(ArticleCategory category)
-        {
-            _blogContext.articleCategories.Add(category);
-            Save();
-        }
-
         public void Delete(ArticleCategory category)
         {
             _blogContext.articleCategories.Remove(category);
             Save();
         }
 
-        public bool Exists(string title)
-        {
-            return _blogContext.articleCategories.Any(c => c.Title == title);
-        }
-
-        public ArticleCategory Get(long id)
-        {
-            return _blogContext.articleCategories.FirstOrDefault(x=>x.Id == id);
-        }
         public EditArticleCategory GetDetails(long id)
         {
             var query = _blogContext.articleCategories.Select(x => new EditArticleCategory
@@ -43,19 +28,14 @@ namespace BM.Infrastructure.EFCore.Repository
             return query;
         }
 
-        public void Save()
-        {
-            _blogContext.SaveChanges();
-        }
-
-        public List<ArticleCategoryViewModel> GetAll()
+        public List<ArticleCategoryViewModel> GetList()
         {
             var query = _blogContext.articleCategories.Select(x => new ArticleCategoryViewModel
             {
                 Id = x.Id,
                 Title = x.Title,
                 IsDeleted = x.IsDeleted,
-                CreationTime = x.CreationTime.ToString()
+                CreationDate = x.CreationDate.ToString()
             });
             return query.OrderByDescending(x => x.Id).ToList();
         }

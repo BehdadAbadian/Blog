@@ -1,21 +1,15 @@
 ﻿using BM.Application.Contracts.ArticleCategory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Framework.Infrastructure;
+
 
 namespace BM.Domain.ArticleCategoryAgg
 {
-    public interface IArticleCategoryRepository
+    public interface IArticleCategoryRepository : IRepository<long,ArticleCategory>
     {
-        void Add(ArticleCategory category);
+        
         void Delete(ArticleCategory category);
-        bool Exists(string title);
-        ArticleCategory Get(long id);
         EditArticleCategory GetDetails(long id);
-        List<ArticleCategoryViewModel> GetAll();
-        void Save();
-
+        List<ArticleCategoryViewModel> GetList();
+       
     }
 }

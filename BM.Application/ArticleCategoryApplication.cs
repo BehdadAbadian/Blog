@@ -15,10 +15,10 @@ namespace BM.Application
 
         public void Create(CreateArticleCategory command)
         {
-            if (_articleCategoryRepository.Exists(command.Title))
+            if (_articleCategoryRepository.Exists(x=>x.Title==command.Title))
                 return;
             var category = new ArticleCategory(command.Title);
-            _articleCategoryRepository.Add(category);
+            _articleCategoryRepository.Create(category);
         }
 
         public void Delete(long id)
@@ -43,7 +43,7 @@ namespace BM.Application
 
         public List<ArticleCategoryViewModel> GetAll()
         {
-            return _articleCategoryRepository.GetAll();
+            return _articleCategoryRepository.GetList();
         }
 
         public void Remove(long id)

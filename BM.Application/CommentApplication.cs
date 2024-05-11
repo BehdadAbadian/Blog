@@ -1,10 +1,5 @@
 ﻿using BM.Application.Contracts.Comment;
 using BM.Domain.CommentAgg;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BM.Application
 {
@@ -20,26 +15,26 @@ namespace BM.Application
         public void Create(CreateComment command)
         {
             var comment = new Comment(command.Name, command.Email, command.Message, command.ArticleId);
-            _commentRepository.Add(comment);    
+            _commentRepository.Create(comment);    
         }
 
         public void Confirm(long id)
         {
-            var comment = _commentRepository.GetBy(id);
+            var comment = _commentRepository.Get(id);
             comment.Confirm();
             _commentRepository.Save();
         }
 
         public void Reject(long id)
         {
-            var comment = _commentRepository.GetBy(id);
+            var comment = _commentRepository.Get(id);
             comment.Reject();
             _commentRepository.Save();
         }
 
         public List<CommentViewModel> GetAll()
         {
-            return _commentRepository.GetAll();
+            return _commentRepository.GetList();
         }
     }
 }

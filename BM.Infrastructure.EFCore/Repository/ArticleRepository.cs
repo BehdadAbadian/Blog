@@ -1,5 +1,6 @@
 ﻿using BM.Application.Contracts.Article;
 using BM.Domain.ArticleAgg;
+using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,30 +10,15 @@ using System.Threading.Tasks;
 
 namespace BM.Infrastructure.EFCore.Repository
 {
-    public class ArticleRepository : IArticleRepositoy
+    public class ArticleRepository : BaseRepository<long,Article>, IArticleRepositoy
     {
         private readonly BlogContext blogContext;
 
-        public ArticleRepository(BlogContext blogContext)
+        public ArticleRepository(BlogContext blogContext) : base(blogContext)
         {
             this.blogContext = blogContext;
         }
 
-        public void Add(Article entity)
-        {
-            blogContext.Articles.Add(entity);  
-            Save();
-        }
-
-        public bool Exits(string title)
-        {
-            return blogContext.Articles.Any(x => x.Title == title);
-        }
-
-        public Article Get(long id)
-        {
-            return blogContext.Articles.FirstOrDefault(x => x.Id == id);
-        }
 
         public EditArticle GetDetails(long id)
         {
@@ -60,9 +46,5 @@ namespace BM.Infrastructure.EFCore.Repository
             }).OrderByDescending(x=>x.Id).ToList();
         }
 
-        public void Save()
-        {
-            blogContext.SaveChanges();
-        }
     }
 }

@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BM.Domain\BM.Domain.csproj" />
+    <ProjectReference Include="..\Framework\Framework.csproj" />
   </ItemGroup>
 
 </Project>
